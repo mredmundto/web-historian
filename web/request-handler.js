@@ -21,6 +21,7 @@ exports.handleRequest = function (req, res) {
         res.writeHead(statusCode);
         res.end(); 
       });
+      //viewing the file
       //var fileContents = fs.readFileSync(archive.paths.list, 'utf8');
       //console.log(fileContents);
     });

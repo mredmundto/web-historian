@@ -37,11 +37,18 @@ exports.isUrlInList = function(url, callback) {
   callback(arr.indexOf(url) > -1);
 };
 
-exports.addUrlToList = function() {
+exports.addUrlToList = function(url, callback) {
+  fs.appendFile(this.paths.list, url + '\n', callback); 
 };
 
-exports.isUrlArchived = function() {
+exports.isUrlArchived = function(url, callback) {
+  fs.exists(this.paths.archivedSites + '/' + url, callback);
 };
 
-exports.downloadUrls = function() {
+exports.downloadUrls = function(urlArr) {
+  urlArr.forEach(function(arr) {
+    var fd = fs.openSync(this.paths.archivedSites + '/' + arr, 'w');
+    fs.writeSync(fd, 'something');
+    fs.closeSync(fd);
+  }.bind(this));
 };
