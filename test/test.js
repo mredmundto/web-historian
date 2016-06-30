@@ -30,7 +30,7 @@ describe('server', function() {
       it('should return the content of a website from the archive', function (done) {
         var fixtureName = 'www.google.com';
         var fixturePath = archive.paths.archivedSites + '/' + fixtureName;
-      
+
         // Create or clear the file.
         var fd = fs.openSync(fixturePath, 'w');
         fs.writeSync(fd, 'google');
@@ -83,6 +83,7 @@ describe('archive helpers', function() {
       fs.writeFileSync(archive.paths.list, urlArray.join('\n'));
 
       archive.readListOfUrls(function(urls) {
+
         expect(urls).to.deep.equal(urlArray);
         done();
       });

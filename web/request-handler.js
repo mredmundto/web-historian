@@ -6,7 +6,26 @@ var http = require('http');
 
 exports.handleRequest = function (req, res) {
   
-  var statusCode; 
+  var statusCode;
+
+  if (req.method === 'POST') {
+    console.log('this is a post');
+    var body = ''; 
+    req.on('data', function(data) {
+      body += data; 
+    });
+    req.on('end', function() {
+      // write the url the file
+      fs.appendFile(archive.paths.list, body.split('url=')[1] + '\n', function() {
+        statusCode = '302'; 
+        res.writeHead(statusCode);
+        res.end(); 
+      });
+      //var fileContents = fs.readFileSync(archive.paths.list, 'utf8');
+      //console.log(fileContents);
+    });
+  }
+
   if (req.method === 'GET' && req.url === '/') {
     fs.readFile(__dirname + '/public/index.html', function (error, data) {
       res.end(data);
