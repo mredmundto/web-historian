@@ -17,9 +17,16 @@ exports.handleRequest = function (req, res) {
     req.on('end', function() {
       // write the url the file
       fs.appendFile(archive.paths.list, body.split('url=')[1] + '\n', function() {
-        statusCode = '302'; 
-        res.writeHead(statusCode);
-        res.end(); 
+        
+        console.log(archive.paths.siteAssets + '/loading.html');
+
+        fs.readFile(archive.paths.siteAssets + '/loading.html', function(error, data) {
+          statusCode = '302'; 
+          res.writeHead(statusCode);
+          res.write(data); 
+          res.end();
+        });
+         
       });
       //viewing the file
       //var fileContents = fs.readFileSync(archive.paths.list, 'utf8');

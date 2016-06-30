@@ -3,11 +3,12 @@
 var request = require('request');
 var archive = require('../helpers/archive-helpers');
 
-var fetch = function(){
-  console.log('this is fetch!!!')
+var fetch = function() {
+  console.log('this is fetch!!!');
 
-  archive.readListOfUrls(function(arr){
+  archive.readListOfUrls(function(arr) {
+    //console.log(arr)
     archive.downloadUrls(arr);
   });
 };
-fetch()
+fetch();

@@ -1,7 +1,7 @@
 var fs = require('fs');
 var path = require('path');
 var _ = require('underscore');
-
+var request = require('request'); 
 /*
  * You will need to reuse the same paths many times over in the course of this sprint.
  * Consider using the `paths` object below to store frequently used file paths. This way,
@@ -48,7 +48,9 @@ exports.isUrlArchived = function(url, callback) {
 exports.downloadUrls = function(urlArr) {
   urlArr.forEach(function(arr) {
     var fd = fs.openSync(this.paths.archivedSites + '/' + arr, 'w');
-    fs.writeSync(fd, 'something');
-    fs.closeSync(fd);
+    request('http://' + arr, function(error, message, body) {
+      fs.writeSync(fd, body);
+      fs.closeSync(fd);  
+    });
   }.bind(this));
 };
