@@ -47,10 +47,12 @@ exports.isUrlArchived = function(url, callback) {
 
 exports.downloadUrls = function(urlArr) {
   urlArr.forEach(function(arr) {
-    var fd = fs.openSync(this.paths.archivedSites + '/' + arr, 'w');
-    request('http://' + arr, function(error, message, body) {
-      fs.writeSync(fd, body);
-      fs.closeSync(fd);  
-    });
+    if (arr !== '') {
+      var fd = fs.openSync(this.paths.archivedSites + '/' + arr, 'w');
+      request('http://' + arr, function(error, message, body) {
+        fs.writeSync(fd, body);
+        fs.closeSync(fd);  
+      });  
+    }
   }.bind(this));
 };

@@ -7,8 +7,7 @@ var fetch = function() {
   console.log('this is fetch!!!');
 
   archive.readListOfUrls(function(arr) {
-    //console.log(arr)
-    archive.downloadUrls(arr);
+    archive.downloadUrls(arr);  
   });
 };
 fetch();
